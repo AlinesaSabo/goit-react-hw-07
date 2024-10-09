@@ -1,0 +1,42 @@
+.formWrapper {
+  display: flex;
+  justify-content: center;
+}
+.error {
+  color: red;
+}
+.form {
+  display: flex;
+  border-radius: 12px;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 0 20px 4px rgb(241, 150, 214);
+  padding: 20px;
+
+  & button {
+    border: none;
+    padding: 12px 15px;
+    background-color: rgb(241, 150, 214);
+    border-radius: 8px;
+    transition: all 0.4s ease;
+    font-weight: bold;
+    &:hover {
+      background-color: rgb(241, 104, 200);
+      cursor: pointer;
+    }
+  }
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  & span {
+    font-weight: bold;
+  }
+  .input {
+    padding: 10px 12px;
+    box-shadow: 2px 2px 4px 4px lightgray;
+    border: none;
+    border-radius: 8px;
+  }
+}

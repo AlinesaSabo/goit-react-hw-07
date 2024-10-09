@@ -1,0 +1,25 @@
+.box {
+  display: flex;
+  border-radius: 12px;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 0 20px 4px rgb(241, 150, 214);
+  padding: 20px;
+  width: 300px;
+  margin-top: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  & span {
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
