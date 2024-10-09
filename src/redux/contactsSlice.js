@@ -1,31 +1,49 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { addContact, deleteContact } from "./operatioms";
 
 const initialState = {
-  items: [
-    { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-    { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-    { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-    { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-  ],
+  items: [],
+  loading: false,
+  error: null,
 };
 
 const slice = createSlice({
   name: "contacts",
   initialState,
-  reducers: {
-    deleteContact: (state, action) => {
-      state.items = state.items.filter(
-        (contact) => contact.id !== action.payload
+  extraReducers: (builder) => {
+    builder
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.items = state.items.filter(
+          (contact) => contact.id !== action.payload
+        );
+      })
+      .addMatcher(
+        isAnyOf(addContact.pending, deleteContact.pending),
+        (state, action) => {
+          state.loading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(addContact.fulfilled, deleteContact.fulfilled),
+        (state, action) => {
+          state.loading = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(addContact.rejected, deleteContact.rejected),
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        }
       );
-    },
-    addContact: (state, action) => {
-      state.items.push(action.payload);
-    },
   },
 });
-
-export const { deleteContact, addContact } = slice.actions;
 
 export const contactsReducer = slice.reducer;
 
 export const selectContact = (state) => state.contacts.items;
+export const selectIsLoading = (state) => state.contacts.loading;
+export const selectIsError = (state) => state.contacts.error;
