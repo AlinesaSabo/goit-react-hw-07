@@ -8,7 +8,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
 
   const initialValues = {
-    username: "",
+    name: "",
     number: "",
   };
 
@@ -18,7 +18,7 @@ const ContactForm = () => {
   };
 
   const orderError = Yup.object().shape({
-    username: Yup.string().min(3, "Too Short!").max(50).required("Required"),
+    name: Yup.string().min(3, "Too Short!").max(50).required("Required"),
     number: Yup.string().min(3, "Too Short!").max(50).required("Required"),
   });
 
@@ -32,8 +32,8 @@ const ContactForm = () => {
         <Form className={s.form}>
           <label className={s.label}>
             <span>Name</span>
-            <Field name="username" />
-            <ErrorMessage name="username" component="p" className={s.error} />
+            <Field name="name" />
+            <ErrorMessage name="name" component="p" className={s.error} />
           </label>
           <label className={s.label}>
             <span>Number</span>
